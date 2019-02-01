@@ -1,2 +1,2 @@
-# electionprotection
+# election protection
 Security Election Project
