@@ -1,5 +1,6 @@
 from flask import render_template
 from _init_ import app
+import dbManager
 
 @app.route('/')
 def landing_page():
