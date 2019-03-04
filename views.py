@@ -1,18 +1,25 @@
 from flask import render_template
 from _init_ import app
+
 import dbManager
 
 @app.route('/')
 def landing_page():
-	#default landing page
-	return render_template("landing.html")
+	return render_template("before.html")
 
-@app.route('/vote')
+@app.route('/activated')
+def landing_page():
+	return render_template("activated.html")
+
+@app.route('/during')
 def vote_page():
 	#voter page endpoint
-	return render_template('vote.html')
+	return render_template('/during.html')
 
-@app.route('/results')
+@app.route('/after')
 def results_page():
+	return render_template('after.html')
 
-	return render_template('results.html')
+@app.route('/check')
+def results_page():
+	return render_template('check.html')
