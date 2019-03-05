@@ -5,11 +5,15 @@ import dbManager
 
 @app.route('/')
 def landing_page():
-	return render_template("before.html")
+	activated = True
+	if activated == True:
+		return render_template("activated.html")
+	else:
+		return render_template("before.html")
 
-@app.route('/activated')
-def landing_page():
-	return render_template("activated.html")
+#@app.route('/activated')
+#def landing_page():
+#	return render_template("activated.html")
 
 @app.route('/during')
 def vote_page():
@@ -17,7 +21,7 @@ def vote_page():
 	return render_template('/during.html')
 
 @app.route('/after')
-def results_page():
+def results_pages():
 	return render_template('after.html')
 
 @app.route('/check')

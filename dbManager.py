@@ -12,3 +12,4 @@ def open_connection():
 def close_connection(connection):
 	connection.close()
 	return
+
