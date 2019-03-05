@@ -21,7 +21,7 @@ def vote_page():
 	return render_template('/during.html')
 
 @app.route('/after')
-def results_pages():
+def results_page_after():
 	return render_template('after.html')
 
 @app.route('/check')
