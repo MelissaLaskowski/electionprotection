@@ -18,12 +18,14 @@ def landing_page():
 @app.route('/during')
 def vote_page():
 	#voter page endpoint
-	return render_template('/during.html')
+	return render_template('during.html')
 
 @app.route('/after')
-def results_page_after():
+def results_page():
+	
 	return render_template('after.html')
+		
 
 @app.route('/check')
-def results_page():
+def results_check_page():
 	return render_template('check.html')
