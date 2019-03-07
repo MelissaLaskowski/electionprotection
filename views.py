@@ -3,6 +3,8 @@ from _init_ import app
 
 import dbManager
 from voter import Voter
+from vote import Vote
+from election_timespan import ElectionTimespan
 
 connection = dbManager.open_connection()
 
@@ -10,7 +12,9 @@ connection = dbManager.open_connection()
 def landing_page():
 	activated = True
 	if activated == True:
-		return render_template("activated.html")
+		startTime = ElectionTimespan.getStartTime(dbManager, connection)
+		endTime = ElectionTimespan.getEndTime(dbManager, connection)
+		return render_template("activated.html", startTime=startTime, endTime=endTime)
 	else:
 		return render_template("before.html")
 
