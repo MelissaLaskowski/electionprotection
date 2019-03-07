@@ -11,16 +11,14 @@
 		<h2>
 			LOGIN
 		</h2>
-		<form>
+		<form action="{{ url_for('vote_page') }}" method="POST">
 			Full Birthname:<br>
 		  	<input type="text" name="Full Birthname"><br>
 		  	SSN:<br>
 		  	<input type="text" name="SSN"><br>
 		  	DOB:<br>
 		  	<input type="text" name="DOB"><br>
-		</form>
-		<form action="./during.html">
-    		<input type="submit" value="Sign In to Vote" />
+		  	<input type="submit" value="Sign In to Vote" />
 		</form>
 	</body>
 </html>

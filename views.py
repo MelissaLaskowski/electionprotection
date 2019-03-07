@@ -1,7 +1,8 @@
-from flask import render_template
+from flask import render_template, request
 from _init_ import app
 
 import dbManager
+from voter import Voter
 
 connection = dbManager.open_connection()
 
@@ -17,16 +18,26 @@ def landing_page():
 #def landing_page():
 #	return render_template("activated.html")
 
-@app.route('/during')
+@app.route('/during', methods=['POST'])
 def vote_page():
 	#voter page endpoint
+	if request.method == 'POST':
+		result = request.form
+		fullName = result['Full Birthname']
+		dob = result['DOB']
+		ssn = result['SSN']
+
+		data = dbManager.run_query(connection, "SELECT * FROM electiondata.authorized_voters WHERE (full_legal_name = '" + str(fullName) + "')")
+
+		currentVoter = Voter(data[0][0], data[0][1], data[0][2], data[0][3], data[0][4])
+		
+		return render_template('during.html', currentVoter=currentVoter)
+
 	return render_template('during.html')
 
 @app.route('/after')
 def results_page():
-	
 	return render_template('after.html')
-		
 
 @app.route('/check')
 def results_check_page():
