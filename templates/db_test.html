@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset= "utf-8" />
+		<title>Online Election</title>
+	</head>
+	<body>
+		<h1>Data:</h1>
+		<ul>
+		{% for item in data %}
+			<p>Voter ID: {{item[0]}}, Candidate ID: {{item[1]}}</p>
+		{% endfor %}
+		</ul>
+	</body>
+</html>
