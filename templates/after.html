@@ -5,11 +5,17 @@
 		<title>Online Election</title>
 	</head>
 	<body>
-		<h1>
-			Results:
-		</h1>
-		<form action="../check.html">
-    		<input type="submit" value="Check Vote" />
+		<form action="{{ url_for('results_check_page') }}">
+    		<input type="submit" value="Check Your Vote!" />
 		</form>
+
+		<h1>
+			Election Results:
+		</h1>
+		<ul>
+		{% for item in data %}
+			<p>Voter ID: {{item[0]}}, Candidate Name: {{item[2]}}</p>
+		{% endfor %}
+		</ul>
 	</body>
 </html>

@@ -6,10 +6,18 @@ class ElectionTimespan:
 		self.end_time = end_time
 
 	def getStartTime(dbManager, connection):
-		data = dbManager.run_query(connection, "SELECT start_time FROM electiondata.election_timespan")[0][0]
+		try:
+			data = dbManager.run_query(connection, "SELECT start_time FROM election_timespan")[0][0]
+		except:
+			return None
+		
 		return data
 
 	def getEndTime(dbManager, connection):
-		data = dbManager.run_query(connection, "SELECT end_time FROM electiondata.election_timespan")[0][0]
+		try:
+			data = dbManager.run_query(connection, "SELECT end_time FROM election_timespan")[0][0]
+		except:
+			return None
+		
 		return data
 

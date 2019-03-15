@@ -5,6 +5,12 @@ CREATE TABLE `electionData`.`election_timespan` (
   `start_time` DATETIME NOT NULL,
   `end_time` DATETIME NOT NULL);
 
+/* Create 'candidates' Table. This table holds a list of candidate names and their associated 'candidate_id'. */
+CREATE TABLE `electionData`.`candidates` (
+  `candidate_id` VARCHAR(64) NOT NULL,
+  `candidate_name` VARCHAR(256) NOT NULL,
+  PRIMARY KEY (`candidate_id`));
+
 /* Create 'votes' Table. This table holds each vote in the form of 'voter_id' the anonymous identifier and 'candidate_id' the id of the candidate the vote was placed for. */
 CREATE TABLE `electionData`.`votes` (
   `voter_id` VARCHAR(64) NOT NULL,

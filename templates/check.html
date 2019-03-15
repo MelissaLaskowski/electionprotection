@@ -8,9 +8,16 @@
 		<h1>
 			Check
 		</h1>
-			<form action=#>
+			<form action="{{ url_for('results_check_page') }}" method="POST">
   			<input type="text" placeholder="Search.." name="search">
   			<button type="submit">Search</button>
 		</form>
+
+		{% if data is not none %}   
+		    <h1>
+				Result:
+			</h1>
+			<p>Voter ID <b>{{data[0]}}</b> has a recorded vote for <b>{{data[2]}}</b></p>
+		{%endif %}
 	</body>
 </html>

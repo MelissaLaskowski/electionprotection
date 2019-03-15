@@ -2,19 +2,6 @@ from flask import Flask
 import mysql.connector
 from _init_ import app
 
-data=[
-	{
-		'name':'Audrin',
-		'place': 'kaka',
-		'mob': '7736'
-	},
-	{
-		'name': 'Stuvard',
-		'place': 'Goa',
-		'mob' : '546464'
-	}
-]
-
 #open database connection
 def open_connection():
 	#change any of the names below depending on db creation
