@@ -27,9 +27,11 @@ def landing_page():
 	else:
 		return render_template("before.html")
 
-#@app.route('/activated')
-#def landing_page():
-#	return render_template("activated.html")
+
+@app.route('/login')
+def login():
+    form = forms.LoginForm()
+    return render_template('login.html', title='Sign In', form=form)
 
 @app.route('/during', methods=['POST'])
 def vote_page():
