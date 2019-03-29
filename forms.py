@@ -3,6 +3,7 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
 
 class LoginForm(FlaskForm):
-    full_name = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('SSN', validators=[DataRequired()])
+    fullname = StringField('Full Name', validators=[DataRequired()])
+    ssn = PasswordField('Social Secutiry Number', validators=[DataRequired()])
+    dob = PasswordField('Date of Birth', validators=[DataRequired()])
     submit = SubmitField('Sign In')
