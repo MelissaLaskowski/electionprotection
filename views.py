@@ -5,6 +5,7 @@ import dbManager
 from voter import Voter
 from vote import Vote
 from election_timespan import ElectionTimespan
+from forms import LoginForm
 
 connection = dbManager.open_connection()
 
@@ -30,7 +31,7 @@ def landing_page():
 
 @app.route('/login')
 def login():
-    form = forms.LoginForm()
+    form = LoginForm()
     return render_template('login.html', title='Sign In', form=form)
 
 @app.route('/during', methods=['POST'])

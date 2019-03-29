@@ -5,7 +5,7 @@ from _init_ import app
 #open database connection
 def open_connection():
 	#change any of the names below depending on db creation
-	connection = mysql.connector.connect(user='admin', password='ElectionProtectionPass', host='127.0.0.1', database='electionData')
+	connection = mysql.connector.connect(user='admin', host='127.0.0.1', database='electionData')
 	return connection
 
 def run_query(connection, myQuery):
