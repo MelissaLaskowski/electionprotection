@@ -1,5 +1,6 @@
-from flask import render_template, request, make_response, redirect
+from flask import render_template, request, make_response, redirect, session, app
 from _init_ import app
+from datetime import timedelta
 
 import dbManager
 from voter import Voter
@@ -8,6 +9,11 @@ from election_timespan import ElectionTimespan
 from forms import LoginForm
 
 connection = dbManager.open_connection()
+
+@app.before_request
+def make_session_permanent():
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(minutes=5)
 
 @app.errorhandler(404)
 def not_found(error):
@@ -33,7 +39,7 @@ def landing_page():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-    	return redirect('/during')
+    	return redirect(url_for('/during'))
     return render_template('login.html', title='Sign In', form=form)
 
 @app.route('/during', methods=['POST'])
