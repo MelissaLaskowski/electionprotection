@@ -7,14 +7,23 @@
         <p>
             {{ form.fullName.label }}<br>
             {{ form.fullName(size=32) }}
+            {% for error in form.fullName.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
         </p>
         <p>
             {{ form.ssn.label }}<br>
             {{ form.ssn(size=32) }}
+            {% for error in form.fullName.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
         </p>
         <p>
             {{ form.dob.label }}<br>
             {{ form.dob(size=32) }}
+            {% for error in form.fullName.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
         </p>
         <p>{{ form.submit() }}</p>
     </form>
