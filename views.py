@@ -1,4 +1,4 @@
-from flask import render_template, request, make_response
+from flask import render_template, request, make_response, redirect
 from _init_ import app
 
 import dbManager
@@ -29,9 +29,11 @@ def landing_page():
 		return render_template("before.html")
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    if form.validate_on_submit():
+    	return redirect('/during')
     return render_template('login.html', title='Sign In', form=form)
 
 @app.route('/during', methods=['POST'])
