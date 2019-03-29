@@ -11,6 +11,10 @@ Set Up:
  
  - pip install pip install mysql-connector
  
+ - pip install flask-login
+ 
+ - pip install flask-wtf
+ 
 Running App:
 
 - python app.py
