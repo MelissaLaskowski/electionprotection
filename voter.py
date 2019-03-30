@@ -19,8 +19,5 @@ class Voter(UserMixin):
 		except:
 			return None
 
-	def set_password(self, ssn, dob):
-		self.password_hash = generate_password_hash(ssn+dob)
-
 	def check_password(self, ssn, dob):
 		return check_password_hash(self.password_hash, ssn+dob)

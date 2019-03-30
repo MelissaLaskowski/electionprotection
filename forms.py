@@ -7,8 +7,3 @@ class LoginForm(FlaskForm):
     ssn = PasswordField('Social Secutiry Number', validators=[DataRequired()])
     dob = PasswordField('Date of Birth', validators=[DataRequired()])
     submit = SubmitField('Sign In')
-
-class RegistrationForm(FlaskForm):
-	fullName = StringField('Full Name', validators=[DataRequired()])
-	ssn = PasswordField('SSN', validators=[DataRequired()])
-	dob = PasswordField('DOB', validators=[DataRequired()])

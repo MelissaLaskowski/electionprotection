@@ -17,15 +17,13 @@ def not_found(error):
 
 @app.route('/')
 def landing_page():
-	dbManager.register()
 	activated = True
 	if activated == True:
 		startTime = ElectionTimespan.getStartTime(dbManager, connection)
 		endTime = ElectionTimespan.getEndTime(dbManager, connection)
 		if not startTime or not endTime:
-			flash('Incorrect Credentials')
 			#TODO perhaps we should create more specific errors, and perhaps we shouldn't, this is an important security decision that we need to make
-			#return not_found('GENERIC ERROR')
+			return not_found('GENERIC ERROR')
 
 		return render_template("activated.html", startTime=startTime, endTime=endTime)
 	else:

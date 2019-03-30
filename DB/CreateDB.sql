@@ -21,8 +21,6 @@ CREATE TABLE `electionData`.`votes` (
 /* Create 'authorized_voters' Table. This table holds the unencrypted fields: 'full_legal_name' and 'salt'. This table holds the encrypted fields: 'dob', 'ssn', and 'has_voted' */
 CREATE TABLE `electionData`.`authorized_voters` (
   `full_legal_name` VARCHAR(256) NOT NULL,
-  `dob` VARCHAR(64) NOT NULL,
-  `ssn` VARCHAR(64) NOT NULL,
+  `password` VARCHAR(64) NOT NULL,
   `has_voted` VARCHAR(64) NOT NULL,
-  `salt` VARCHAR(64) NULL,
   PRIMARY KEY (`full_legal_name`));

@@ -28,8 +28,8 @@ def register():
 		if line_num != 0:
 			hash = generate_password_hash(row[1]+row[2])
 			print(hash)
-			"INSERT INTO authorized_voters (full_legal_name, ssn, has_voted) VALUES ( "+row[0]+" , "+hash+" , "+row[3] +" );"
-
+			query ="INSERT INTO authorized_voters (full_legal_name, ssn, has_voted) VALUES ( "+row[0]+" , "+hash+" , "+row[3] +" );"
+			dbManager.run_query(connection, myQuery)
 		else:
 			print(row)
 			line_num+=1
