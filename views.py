@@ -1,6 +1,6 @@
-from flask import render_template, request, make_response, redirect, session, app
+from flask import render_template, request, make_response, redirect, session, app, url_for, flash
 from _init_ import app
-from datetime import timedelta
+from flask_login import current_user, login_user, logout_user, login_required
 
 import dbManager
 from voter import Voter
@@ -9,11 +9,6 @@ from election_timespan import ElectionTimespan
 from forms import LoginForm
 
 connection = dbManager.open_connection()
-
-@app.before_request
-def make_session_permanent():
-    session.permanent = True
-    app.permanent_session_lifetime = timedelta(minutes=5)
 
 @app.errorhandler(404)
 def not_found(error):
@@ -27,8 +22,9 @@ def landing_page():
 		startTime = ElectionTimespan.getStartTime(dbManager, connection)
 		endTime = ElectionTimespan.getEndTime(dbManager, connection)
 		if not startTime or not endTime:
+			flash('Incorrect Credentials')
 			#TODO perhaps we should create more specific errors, and perhaps we shouldn't, this is an important security decision that we need to make
-			return not_found('GENERIC ERROR')
+			#return not_found('GENERIC ERROR')
 
 		return render_template("activated.html", startTime=startTime, endTime=endTime)
 	else:
@@ -39,10 +35,16 @@ def landing_page():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
+    	user = Voter.getVoter(dbManager, connection, form.fullName.data)
+    	if user is None or not user.check_password(form.ssn.data, form.dob.data):
+    		#notify user authentication did not work
+    		return not_found('Incorrect Info')
+    	login_user(user)
     	return redirect(url_for('/during'))
     return render_template('login.html', title='Sign In', form=form)
 
 @app.route('/during', methods=['POST'])
+@login_required
 def vote_page():
 	#voter page endpoint
 	if request.method == 'POST':
