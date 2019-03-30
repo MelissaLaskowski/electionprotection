@@ -12,6 +12,3 @@ class RegistrationForm(FlaskForm):
 	fullName = StringField('Full Name', validators=[DataRequired()])
 	ssn = PasswordField('SSN', validators=[DataRequired()])
 	dob = PasswordField('DOB', validators=[DataRequired()])
-
-	def validate_ssn(self, ssn):
-		len(ssn) == 9

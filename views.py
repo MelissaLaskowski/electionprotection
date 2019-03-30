@@ -17,6 +17,7 @@ def not_found(error):
 
 @app.route('/')
 def landing_page():
+	dbManager.register()
 	activated = True
 	if activated == True:
 		startTime = ElectionTimespan.getStartTime(dbManager, connection)

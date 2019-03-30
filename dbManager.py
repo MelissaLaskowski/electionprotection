@@ -1,6 +1,8 @@
 from flask import Flask
 import mysql.connector
 from _init_ import app
+import csv
+from werkzeug.security import generate_password_hash
 
 #open database connection
 def open_connection():
@@ -19,3 +21,15 @@ def close_connection(connection):
 	connection.close()
 	return
 
+def register():
+	voterReader = csv.reader(open('DB/voter_data.csv', newline=''))
+	line_num = 0
+	for row in voterReader:
+		if line_num != 0:
+			hash = generate_password_hash(row[1]+row[2])
+			print(hash)
+			"INSERT INTO authorized_voters (full_legal_name, ssn, has_voted) VALUES ( "+row[0]+" , "+hash+" , "+row[3] +" );"
+
+		else:
+			print(row)
+			line_num+=1
