@@ -32,11 +32,11 @@ def register():
 		if line_num != 0:
 			#the hash is generated from the ssn and dob
 			hash = generate_password_hash(row[1]+row[2])
-			print(hash, row[0], row[3])
-			query ="INSERT INTO authorized_voters (full_legal_name, password, has_voted) VALUES ( %s, %s, %s );"
-
-			print(query)
-			cursor.execute(connection, query, (row[0], hash, row[3]))
+			
+			query ="""INSERT INTO authorized_voters (full_legal_name, password, has_voted) VALUES ( %s, %s, %s);"""
+			data = (row[0].encode('ascii', 'utf-8'), hash.encode('ascii', 'utf-8'), row[3].encode('ascii', 'utf-8'))
+			#print(query)(str(id.decode('unicode_escape').encode('ascii', 'utf-8'))
+			cursor.execute(connection, query, data)
 		else:
 			print(row)
 			line_num+=1
