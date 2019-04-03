@@ -8,16 +8,18 @@ from vote import Vote
 from election_timespan import ElectionTimespan
 from forms import LoginForm
 
+#a global connection for all the SQL queries
 connection = dbManager.open_connection()
 
+#response page if there is an error
 @app.errorhandler(404)
 def not_found(error):
     resp = make_response(render_template('error.html', error=error), 404)
     return resp
 
+
 @app.route('/')
 def landing_page():
-	dbManager.register()
 	activated = True
 	if activated == True:
 		startTime = ElectionTimespan.getStartTime(dbManager, connection)
