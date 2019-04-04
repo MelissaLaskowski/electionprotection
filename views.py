@@ -36,9 +36,11 @@ def landing_page():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
+    	print(form.fullName.data)
     	user = Voter.getVoter(dbManager, connection, form.fullName.data)
     	if user is None or not user.check_password(form.ssn.data, form.dob.data):
     		#notify user authentication did not work
+    		print(user)
     		return not_found('Incorrect Info')
     	login_user(user)
     	return redirect(url_for('/during'))
