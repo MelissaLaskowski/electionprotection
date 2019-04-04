@@ -50,3 +50,11 @@ def register():
 		else:
 			line_num+=1
 	close_connection(connection)
+
+#after a user has voted, mark them as voted
+def mark_voted(fullName):
+	connection = open_connection()
+	cursor = connection.cursor()
+	query=("UPDATE authorized_voters SET has_voted='true' WHERE full_legal_name="+fullName+";")
+	cursor.execute(query)
+	connection.commit()

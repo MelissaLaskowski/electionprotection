@@ -30,38 +30,36 @@ def landing_page():
 
 		return render_template("activated.html", startTime=startTime, endTime=endTime)
 	else:
-		return render_template("before.html")
+		return render_template("login.html")
 
+#login functionality for users 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    #if they submitted all the necessary features of the login form
     if form.validate_on_submit():
-    	print(form.fullName.data)
+    	#check if the user is in the database
     	user = Voter.getVoter(dbManager, connection, form.fullName.data)
+    	#confirm users password
     	if user is None or not user.check_password(form.ssn.data, form.dob.data):
     		#notify user authentication did not work
-    		print(user)
     		return not_found('Incorrect Info')
-    	login_user(user)
-    	return redirect(url_for('/during'))
+    	#login_user(user)
+    	return vote_page(user)
     return render_template('login.html', title='Sign In', form=form)
 
-@app.route('/during', methods=['POST'])
-@login_required
-def vote_page():
+@app.route('/during')
+def vote_page(user):
 	#voter page endpoint
-	if request.method == 'POST':
-		result = request.form
-		fullName = result['Full Birthname']
-		dob = result['DOB']
-		ssn = result['SSN']
+	#if request.method == 'POST':
+	#	result = request.form
+	#	fullName = result['Full Birthname']
+	#	dob = result['DOB']
+	#	ssn = result['SSN']
 
-		currentVoter = Voter.getVoter(dbManager, connection, fullName)
+	currentVoter = user
 
-		if not currentVoter:
-			return not_found('Your information does not match any registered voter. Please return to the previous page and make sure your information is entered correctly.')
-		
-		return render_template('during.html', currentVoter=currentVoter)
+	return render_template('during.html', currentVoter=currentVoter)
 
 	return render_template('during.html')
 
