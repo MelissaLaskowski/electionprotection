@@ -6,10 +6,10 @@ from werkzeug.security import generate_password_hash
 
 #open database connection
 def open_connection():
-	#change any of the names below depending on db creation
 	connection = mysql.connector.connect(user='admin', host='127.0.0.1', database='electionData')
 	return connection
 
+#runs given queiries against the database
 def run_query(connection, myQuery):
 	myCursor = connection.cursor()
 	myCursor.execute(myQuery)
@@ -31,12 +31,22 @@ def register():
 		#do this check to avoid the headers to the csv file
 		if line_num != 0:
 			#the hash is generated from the ssn and dob
-			hash = generate_password_hash(row[1]+row[2])
-			
-			query ="""INSERT INTO authorized_voters (full_legal_name, password, has_voted) VALUES ( %s, %s, %s);"""
-			data = (row[0].encode('ascii', 'utf-8'), hash.encode('ascii', 'utf-8'), row[3].encode('ascii', 'utf-8'))
-			#print(query)(str(id.decode('unicode_escape').encode('ascii', 'utf-8'))
-			cursor.execute(connection, query, data)
+			password = generate_password_hash(row[1]+row[2])
+			name =""; 
+			if "'" in row[0]:
+				for char in row[0]:
+					if char== "'":
+						name+="''"
+					else:
+						name+=char
+			else:
+				name = row[0]
+			values = (" '"+name+"' , '"+password+"' , '"+row[3]+"' ")
+			query =("INSERT INTO authorized_voters VALUES ( "+ values + ");")
+			print(query)
+
+			cursor.execute(query)
+			connection.commit()
 		else:
-			print(row)
 			line_num+=1
+	close_connection(connection)
