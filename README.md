@@ -1,6 +1,10 @@
 # election protection
 Security Election Project
 
+Start the set up by cloning this repo to your desired location
+
+git clone https://github.com/MelissaLaskowski/electionprotection.git
+
 Requirements:
 
  - python 3.7 (should work with most versions of python 3)
@@ -9,7 +13,7 @@ Requirements:
  
  - pip3 install mysql
  
- - pip3 install pip install mysql-connector
+ - pip3 install mysql-connector-python
  
  - pip3 install flask-login
  
@@ -17,9 +21,13 @@ Requirements:
  
 Set Up Database: (open mysql in the election protection directory)
 
-- mysql -u admin
+- mysql -u root -p
 
 - SOURCE DB/CreateDB.sql;
+
+- CREATE USER 'electionAdmin'@'localhost' IDENTIFIED BY 'ElectionProtectionPass';
+
+- GRANT ALL ON electionData.* TO 'electionAdmin'@'localhost' WITH GRANT OPTION;
 
 - quit;
 
@@ -28,6 +36,8 @@ Set Up Database: (open mysql in the election protection directory)
 Running App:
 
 - python3 app.py
+
+- got to http://127.0.0.1:5000/ 
 
 Test Users:
 
