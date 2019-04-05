@@ -27,18 +27,21 @@ def landing_page():
 	startTime = ElectionTimespan.getStartTime(dbManager, connection)
 	endTime = ElectionTimespan.getEndTime(dbManager, connection)
 	if not startTime or not endTime:
-		#TODO perhaps we should create more specific errors, and perhaps we shouldn't, this is an important security decision that we need to make
 		return not_found('GENERIC ERROR')
 
 	form = LoginForm()
+
 	#if they submitted all the necessary features of the login form
 	if form.validate_on_submit():
 		#check if the user is in the database
 		user = Voter.getVoter(dbManager, connection, form.fullName.data)
+
 		#confirm users password
 		if user is None or not user.check_password(form.ssn.data, form.dob.data):
+
 			#notify user authentication did not work
 			return not_found('Either you have already voted or the information you entered did not match any on record. If you have not yet voted, please try again.')
+		
 		#login_user(user)
 		return vote_page(user)
 	return render_template("login.html", title='Sign In', form=form, startTime=startTime, endTime=endTime)
@@ -49,12 +52,15 @@ def login():
 	form = LoginForm()
 	#if they submitted all the necessary features of the login form
 	if form.validate_on_submit():
+
 		#check if the user is in the database
 		user = Voter.getVoter(dbManager, connection, form.fullName.data)
+
 		#confirm users password
 		if user is None or not user.check_password(form.ssn.data, form.dob.data):
 			#notify user authentication did not work
 			return not_found('Either you have already voted or the information you entered did not match any on record. If you have not yet voted, please try again.')
+		
 		#login_user(user)
 		return vote_page(user)
 	return render_template('login.html', title='Sign In', form=form)
@@ -86,7 +92,6 @@ def results_check_page():
 		if request.method == 'POST':
 			result = request.form
 			searchQuery = result['search']
-			# TODO searchQuery should be cleaned before it is passed as a parameter to the DB!
 			data = Vote.getVote(dbManager, connection, searchQuery)
 			if not data:
 				return not_found('Your voter ID does not match any voter IDs recorded for this election. Please return to the previous page and make sure your voter ID is entered correctly.')
@@ -103,7 +108,6 @@ def cast_vote():
 		if dbManager.isElectionActive(dbManager, connection):
 			result = request.form.getlist('candidate[]')
 			full_legal_name = request.form.getlist('full_legal_name')[0]
-			print("full_legal_name: " + str(full_legal_name))
 			candiateID = result[0]
 
 			# generate a cryptographically secure unsigned int
@@ -116,8 +120,6 @@ def cast_vote():
 
 			dbManager.mark_voted(full_legal_name)
 
-			print("voterID: " + str(randomVoterID))
 			return render_template('verify.html', voterID=randomVoterID)
-			# searchQuery = result['search']
 		else:
 			return not_found('The election is over!')

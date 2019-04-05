@@ -12,9 +12,10 @@ class Voter(UserMixin):
 	def getVoter(dbManager, connection, full_legal_name):
 		myQuery = "SELECT * FROM authorized_voters WHERE (full_legal_name = '" + str(full_legal_name) + "')"
 		data = dbManager.run_query(connection, myQuery)
-		print(data)
+
 		#if the data brings back a valid user
 		if data is not None:
+
 			#check if they have voted
 			if data[0][2] == 'false':
 				return Voter(data[0][0], data[0][1], data[0][2])
@@ -27,6 +28,4 @@ class Voter(UserMixin):
 
 	def check_password(self, ssn, dob):
 		myHash = generate_password_hash(ssn+dob)
-		print("Checking password, ssn: " + str(ssn) + ", dob: " + str(dob) + ", hash: " + str(myHash))
-		print("stored hash: " + str(self.password_hash))
 		return check_password_hash(self.password_hash, ssn+dob)
