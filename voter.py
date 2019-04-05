@@ -26,4 +26,7 @@ class Voter(UserMixin):
 
 
 	def check_password(self, ssn, dob):
+		myHash = generate_password_hash(ssn+dob)
+		print("Checking password, ssn: " + str(ssn) + ", dob: " + str(dob) + ", hash: " + str(myHash))
+		print("stored hash: " + str(self.password_hash))
 		return check_password_hash(self.password_hash, ssn+dob)

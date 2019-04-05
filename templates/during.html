@@ -7,31 +7,18 @@
 	<body>
 		<p>Your Voter Info:</p>
 		<p>&emsp;Name: {{currentVoter.full_legal_name}}</p>
-		<p>&emsp;DOB: {{currentVoter.dob}}</p>
-		<p>&emsp;SSN: {{currentVoter.ssn}}</p>
 		<p>&emsp;Has voted?: {{currentVoter.has_voted}}</p>
-		<p>&emsp;Salt: {{currentVoter.salt}}</p>
 
 		<h1>
 			Select a Canidate
 		</h1>
-		<div>
-		  <input type="radio" id="huey" name="drone" value="huey"
-		         checked>
-		  <label for="huey">Huey</label>
-		</div>
 
-		<div>
-		  <input type="radio" id="dewey" name="drone" value="dewey">
-		  <label for="dewey">Dewey</label>
-		</div>
-
-		<div>
-		  <input type="radio" id="louie" name="drone" value="louie">
-		  <label for="louie">Louie</label>
-		</div>
-		<form action="../verify.html">
-    		<input type="submit" value="Cast Vote" />
+		<form action="{{ url_for('cast_vote') }}" method="POST">
+			{% for candidate in candidates %}
+				<input type="radio" name="candidate[]" value="{{candidate[0]}}"/>{{candidate[1]}}<br>
+			{% endfor %}
+			<input type="submit" value="Cast Vote" />
+			<input type="hidden" name="full_legal_name" value="{{currentVoter.full_legal_name}}"/>
 		</form>
 	</body>
 </html>
