@@ -30,7 +30,6 @@ def mark_voted(fullName):
 	connection = open_connection()
 	cursor = connection.cursor()
 	query=("UPDATE authorized_voters SET has_voted='true' WHERE full_legal_name='"+fullName+"';")
-	print(query)
 	cursor.execute(query)
 	connection.commit()
 

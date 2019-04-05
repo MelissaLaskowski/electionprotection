@@ -3,7 +3,6 @@ class Vote:
 		self.voter_id = voter_id
 		self.candidate_id = candidate_id
 
-	#TODO figure out how to return a vote object or array of vote objects efficiently
 	def getVote(dbManager, connection, myVoterID):
 		myQuery = "SELECT votes.voter_id, votes.candidate_id, candidates.candidate_name FROM votes INNER JOIN candidates ON votes.candidate_id=candidates.candidate_id where votes.voter_id='"+myVoterID+"';"
 		
