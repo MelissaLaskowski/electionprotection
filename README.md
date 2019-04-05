@@ -37,6 +37,8 @@ Running App:
 
 - python3 app.py
 
+- got to http://127.0.0.1:5000/ 
+
 Test Users:
 
 (FullName	SSN	DOB	Has_Voted)
