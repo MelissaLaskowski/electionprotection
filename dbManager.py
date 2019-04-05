@@ -2,7 +2,6 @@ from flask import Flask
 import mysql.connector
 from _init_ import app
 import csv
-from werkzeug.security import generate_password_hash
 
 #open database connection
 def open_connection():
@@ -11,7 +10,7 @@ def open_connection():
 
 #runs given queiries against the database
 def run_query(connection, myQuery):
-	myCursor = connection.cursor()
+	myCursor = connection.cursor(prepared=True)
 	myCursor.execute(myQuery)
 	myData = myCursor.fetchall()
 	return myData
