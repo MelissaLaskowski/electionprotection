@@ -15,12 +15,15 @@ Requirements:
  
  - pip install flask-wtf
  
-Set Up Database:
+Set Up Database: (open mysql in the election protection directory)
 
 - mysql -u admin
 
 - SOURCE DB/CreateDB.sql;
 
+- quit;
+
+- python DB/insertdata.py
  
 Running App:
 
