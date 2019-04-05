@@ -5,7 +5,7 @@ import csv
 
 #open database connection
 def open_connection():
-	connection = mysql.connector.connect(user='admin', password='ElectionProtectionPass', host='127.0.0.1', database='electiondata')
+	connection = mysql.connector.connect(user='electionAdmin', password='ElectionProtectionPass', host='127.0.0.1', database='electiondata')
 	return connection
 
 #runs given queiries against the database
