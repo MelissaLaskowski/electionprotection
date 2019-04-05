@@ -98,7 +98,9 @@ def results_check_page():
 		if request.method == 'POST':
 			result = request.form
 			searchQuery = result['search']
-			data = Vote.getVote(dbManager, connection, searchQuery)
+			cleanSearchQuery = re.sub(r"\D", "", searchQuery)
+			
+			data = Vote.getVote(dbManager, connection, cleanSearchQuery)
 			if not data:
 				return not_found('Your voter ID does not match any voter IDs recorded for this election. Please return to the previous page and make sure your voter ID is entered correctly.')
 			

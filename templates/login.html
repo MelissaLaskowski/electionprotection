@@ -3,7 +3,7 @@
 <p><b>Election End Time:</b> {{endTime}}</p>
 
 {% block content %}
-    <h1>Sign In</h1>
+    <h1>Sign In to Vote</h1>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <p>
@@ -30,3 +30,8 @@
         <p>{{ form.submit() }}</p>
     </form>
 {% endblock %}
+
+<h2>Results of the Election</h2>
+<form action="{{ url_for('results_page') }}">
+    <a href=#><button class='btn btn-default'>Election Results</button></a>
+</form>
