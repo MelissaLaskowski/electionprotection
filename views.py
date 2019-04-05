@@ -62,57 +62,62 @@ def login():
 @app.route('/during')
 def vote_page(user):
 	#voter page endpoint
-	#if request.method == 'POST':
-	#	result = request.form
-	#	fullName = result['Full Birthname']
-	#	dob = result['DOB']
-	#	ssn = result['SSN']
 
-	currentVoter = user
-	myQuery = "SELECT * FROM candidates"
-	candidates = dbManager.run_query(connection, myQuery)
+	if dbManager.isElectionActive(dbManager, connection):
+		currentVoter = user
+		myQuery = "SELECT * FROM candidates"
+		candidates = dbManager.run_query(connection, myQuery)
 
-	return render_template('during.html', currentVoter=currentVoter, candidates=candidates)
-
-	return render_template('during.html')
+		return render_template('during.html', currentVoter=currentVoter, candidates=candidates)
+	else:
+		return not_found('The election is over!')
 
 @app.route('/after')
 def results_page():
-	data = Vote.getAllVotes(dbManager, connection)
-	return render_template('after.html', data=data)
+	if dbManager.isElectionOver(dbManager, connection):
+		data = Vote.getAllVotes(dbManager, connection)
+		return render_template('after.html', data=data)
+	else:
+		return not_found('The election has not yet concluded, please try again after the election end time.')
 
 @app.route('/check', methods=['GET', 'POST'])
 def results_check_page():
-	if request.method == 'POST':
-		result = request.form
-		searchQuery = result['search']
-		# TODO searchQuery should be cleaned before it is passed as a parameter to the DB!
-		data = Vote.getVote(dbManager, connection, searchQuery)
-		if not data:
-			return not_found('Your voter ID does not match any voter IDs recorded for this election. Please return to the previous page and make sure your voter ID is entered correctly.')
-		
-		return render_template('check.html', data=data)
+	if dbManager.isElectionOver(dbManager, connection):
+		if request.method == 'POST':
+			result = request.form
+			searchQuery = result['search']
+			# TODO searchQuery should be cleaned before it is passed as a parameter to the DB!
+			data = Vote.getVote(dbManager, connection, searchQuery)
+			if not data:
+				return not_found('Your voter ID does not match any voter IDs recorded for this election. Please return to the previous page and make sure your voter ID is entered correctly.')
+			
+			return render_template('check.html', data=data)
+		else:
+			return render_template('check.html', data=None)
 	else:
-		return render_template('check.html', data=None)
+		return not_found('The election has not yet concluded, please try again after the election end time.')
 
 @app.route('/cast_vote', methods=['POST'])
 def cast_vote():
 	if request.method == 'POST':
-		result = request.form.getlist('candidate[]')
-		full_legal_name = request.form.getlist('full_legal_name')[0]
-		print("full_legal_name: " + str(full_legal_name))
-		candiateID = result[0]
+		if dbManager.isElectionActive(dbManager, connection):
+			result = request.form.getlist('candidate[]')
+			full_legal_name = request.form.getlist('full_legal_name')[0]
+			print("full_legal_name: " + str(full_legal_name))
+			candiateID = result[0]
 
-		# generate a cryptographically secure unsigned int
-		randomVoterID = struct.unpack('I', os.urandom(4))[0]
+			# generate a cryptographically secure unsigned int
+			randomVoterID = struct.unpack('I', os.urandom(4))[0]
 
-		myQuery = "INSERT INTO votes (voter_id, candidate_id) VALUES ("+str(randomVoterID)+", "+str(candiateID)+");"
-		cursor = connection.cursor()
-		cursor.execute(myQuery)
-		connection.commit()
+			myQuery = "INSERT INTO votes (voter_id, candidate_id) VALUES ("+str(randomVoterID)+", "+str(candiateID)+");"
+			cursor = connection.cursor()
+			cursor.execute(myQuery)
+			connection.commit()
 
-		dbManager.mark_voted(full_legal_name)
+			dbManager.mark_voted(full_legal_name)
 
-		print("voterID: " + str(randomVoterID))
-		return render_template('verify.html', voterID=randomVoterID)
-		# searchQuery = result['search']
+			print("voterID: " + str(randomVoterID))
+			return render_template('verify.html', voterID=randomVoterID)
+			# searchQuery = result['search']
+		else:
+			return not_found('The election is over!')

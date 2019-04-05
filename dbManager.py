@@ -3,6 +3,11 @@ import mysql.connector
 from _init_ import app
 import csv
 
+# import datetime to ensure votes are only cast during election time
+from datetime import datetime
+
+from election_timespan import ElectionTimespan
+
 #open database connection
 def open_connection():
 	connection = mysql.connector.connect(user='admin', password='ElectionProtectionPass', host='127.0.0.1', database='electiondata')
@@ -28,3 +33,22 @@ def mark_voted(fullName):
 	print(query)
 	cursor.execute(query)
 	connection.commit()
+
+def isElectionActive(dbManager, connection):
+	startTime = ElectionTimespan.getStartTime(dbManager, connection)
+	endTime = ElectionTimespan.getEndTime(dbManager, connection)
+
+	# startTime = datetime.strptime(startTime_str, '%Y-%B-%d %H:%M:%S')
+	# endTime = datetime.strptime(endTime_str, '%Y-%B-%d %H:%M:%S')
+
+	currentTime = datetime.now()
+
+	return startTime <= currentTime <= endTime
+
+def isElectionOver(dbManager, connection):
+	endTime = ElectionTimespan.getEndTime(dbManager, connection)
+	# endTime = datetime.strptime(endTime_str, '%Y-%B-%d %H:%M:%S')
+
+	currentTime = datetime.now()
+
+	return endTime <= currentTime
