@@ -21,9 +21,13 @@ Requirements:
  
 Set Up Database: (open mysql in the election protection directory)
 
-- mysql -u admin
+- mysql -u root -p
 
 - SOURCE DB/CreateDB.sql;
+
+- CREATE USER 'electionAdmin'@'localhost' IDENTIFIED BY 'ElectionProtectionPass';
+
+- GRANT ALL ON electionData.* TO 'electionAdmin'@'localhost' WITH GRANT OPTION;
 
 - quit;
 
