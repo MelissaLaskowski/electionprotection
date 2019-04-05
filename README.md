@@ -13,7 +13,7 @@ Requirements:
  
  - pip3 install mysql
  
- - pip3 install pip install mysql-connector
+ - pip3 install mysql-connector-python
  
  - pip3 install flask-login
  
