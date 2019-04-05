@@ -5,15 +5,15 @@ Requirements:
 
  - python 3.7 (should work with most versions of python 3)
  
- - pip install Flask
+ - pip3 install Flask
  
- - pip install mysql
+ - pip3 install mysql
  
- - pip install pip install mysql-connector
+ - pip3 install pip install mysql-connector
  
- - pip install flask-login
+ - pip3 install flask-login
  
- - pip install flask-wtf
+ - pip3 install flask-wtf
  
 Set Up Database: (open mysql in the election protection directory)
 
@@ -23,11 +23,11 @@ Set Up Database: (open mysql in the election protection directory)
 
 - quit;
 
-- python DB/insertdata.py
+- python3 DB/insertdata.py
  
 Running App:
 
-- python app.py
+- python3 app.py
 
 Test Users:
 
