@@ -1,6 +1,10 @@
 # election protection
 Security Election Project
 
+Start the set up by cloning this repo to your desired location
+
+git clone https://github.com/MelissaLaskowski/electionprotection.git
+
 Requirements:
 
  - python 3.7 (should work with most versions of python 3)
