@@ -111,10 +111,7 @@ def cast_vote():
 		cursor.execute(myQuery)
 		connection.commit()
 
-		myQuery = "UPDATE authorized_voters SET has_voted='true' WHERE (full_legal_name='"+str(full_legal_name)+"');"
-		cursor = connection.cursor()
-		cursor.execute(myQuery)
-		connection.commit()
+		dbManager.mark_voted(full_legal_name)
 
 		print("voterID: " + str(randomVoterID))
 		return render_template('verify.html', voterID=randomVoterID)
