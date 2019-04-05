@@ -43,20 +43,20 @@ Test Users:
 
 (FullName	SSN	DOB	Has_Voted)
 
-Aurore Canty	103-86-7984	12/12/2008	false
+Aurore Canty	103867984	12122008	false
 
-Ali Barff	501-76-4250	12/11/1933	true
+Ali Barff	501764250	12111933	true
 
-Hanna Heam	668-44-4039	12/13/1962	false
+Hanna Heam	668444039	12131962	false
 
-Terrence Hotton	359-84-2986	5/20/1977	true
+Terrence Hotton	359842986	05201977	true
 
-Nonah Sessions	430-65-4218	7/27/1964	true
+Nonah Sessions	430654218	07271964	true
 
-Tannie Shervil	272-76-1736	11/30/1942	false
+Tannie Shervil	272761736	11301942	false
 
-Vladamir Hurche	636-63-3445	10/19/1968	false
+Vladamir Hurche	636633445	10191968	false
 
-Kerrie Salvidge	705-73-1509	5/2/1985	false
+Kerrie Salvidge	705731509	05021985	false
 
-Justinn Odams	167-03-1092	2/25/1935	true
+Justinn Odams	167031092	02251935	true

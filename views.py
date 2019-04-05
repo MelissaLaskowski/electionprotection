@@ -6,6 +6,9 @@ from flask_login import current_user, login_user, logout_user, login_required
 import os
 import struct
 
+# using re to clean data from the user
+import re
+
 import dbManager
 from voter import Voter
 from vote import Vote
@@ -53,11 +56,14 @@ def login():
 	#if they submitted all the necessary features of the login form
 	if form.validate_on_submit():
 
+		cleanSSN = re.sub(r"\D", "", form.ssn.data)
+		cleanDOB = re.sub(r"\D", "", form.dob.data)
+
 		#check if the user is in the database
 		user = Voter.getVoter(dbManager, connection, form.fullName.data)
 
 		#confirm users password
-		if user is None or not user.check_password(form.ssn.data, form.dob.data):
+		if user is None or not user.check_password(cleanSSN, cleanDOB):
 			#notify user authentication did not work
 			return not_found('Either you have already voted or the information you entered did not match any on record. If you have not yet voted, please try again.')
 		
