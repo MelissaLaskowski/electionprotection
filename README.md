@@ -18,6 +18,8 @@ Requirements:
  - pip3 install flask-login
  
  - pip3 install flask-wtf
+
+ - pip3 install pyopenssl
  
 Set Up Database: (open mysql in the election protection directory)
 
@@ -37,7 +39,9 @@ Running App:
 
 - python3 app.py
 
-- got to http://127.0.0.1:5000/ 
+- got to https://127.0.0.1:5000/
+
+- due to the test server not having SSL Certificates you will see a warning from your browser that the site is unsafe, click to continue to the site. On a real server a certificate would be used to ensure this message does not effect user's experience and improve security.
 
 Test Users:
 
