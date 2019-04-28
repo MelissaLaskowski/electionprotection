@@ -1,6 +1,6 @@
 Melissa
 
 Sarah Fomchenko
-Sarah Fomchenko's contribution to the project was the front end portion of the web application and majority writer of research report. If you access the templates directory, you will find the html files for the front end portion of the web application Fomchenko design and created. The listed files Fomchenko created are after.html, check.html, during.html, error.html, login.html, and verify.html. For the paper portion, Fomchenko wrote Abstract, Motivation, Block Diagram, second paragraph in Design Considerations, Analysis, Related Work, first paragraph of Current Status, Future Work, Lessons Learned, Ethical and Legal Issues, Conclusions, and References.
+Sarah Fomchenko's contribution to the project was the front end portion of the web application and dedicated writer/editior of research report. If you access the templates directory, you will find the html files for the front end portion of the web application Fomchenko design and created. The listed files Fomchenko created are after.html, check.html, during.html, error.html, login.html, and verify.html. For the paper portion, Fomchenko wrote Abstract, Motivation, Block Diagram, second paragraph in Design Considerations, Analysis, Related Work, first paragraph of Current Status, Future Work, Lessons Learned, Ethical and Legal Issues, Conclusions, and References. 
 
 Stephen
