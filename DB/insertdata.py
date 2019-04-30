@@ -49,7 +49,7 @@ def add_candidates(cursor, connection):
 			line_num+=1
 
 def main():
-	connection = mysql.connector.connect(user='admin', host='127.0.0.1', database='electionData')
+	connection = mysql.connector.connect(user='electionAdmin', host='127.0.0.1', database='electiondata')
 	cursor = connection.cursor()
 	#insert authorized user data
 	register_user(cursor, connection)
