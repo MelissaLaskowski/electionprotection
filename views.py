@@ -60,7 +60,8 @@ def login():
 		cleanDOB = re.sub(r"\D", "", form.dob.data)
 
 		#check if the user is in the database
-		user = Voter.getVoter(dbManager, connection, form.fullName.data)
+		cleanFLN = re.sub(r"[A-Za-z']", "", form.fullName.data)
+		user = Voter.getVoter(dbManager, connection, cleanFLN)
 
 		#confirm users password
 		if user is None or not user.check_password(cleanSSN, cleanDOB):
@@ -118,6 +119,8 @@ def cast_vote():
 			full_legal_name = request.form.getlist('full_legal_name')[0]
 			candiateID = result[0]
 
+			cleanFLN = re.sub(r"[A-Za-z']", "", full_legal_name)
+
 			# generate a cryptographically secure unsigned int
 			randomVoterID = struct.unpack('I', os.urandom(4))[0]
 
@@ -126,7 +129,7 @@ def cast_vote():
 			cursor.execute(myQuery)
 			connection.commit()
 
-			dbManager.mark_voted(full_legal_name)
+			dbManager.mark_voted(cleanFLN)
 
 			return render_template('verify.html', voterID=randomVoterID)
 		else:
